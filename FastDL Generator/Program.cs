@@ -179,7 +179,15 @@ namespace FastDL_Generator
                     Console.WriteLine("All Threads Killed, Generator closed");
 
                     // Save the fastdl.lua in the target folder
-                    File.WriteAllText(copyPath + $"/fastdl-{Path.GetFileName(MainPath).ToLower()}.lua", FileData);
+                    try
+                    {
+                        File.WriteAllText(copyPath + $"/fastdl-{Path.GetFileName(MainPath).ToLower()}.lua", FileData);
+                    }
+                    catch (Exception e) 
+                    {
+                        Console.WriteLine($"Failed to create the lua file: {e.Message}");
+                        Console.ReadKey();
+                    }
                 }
             }
 
