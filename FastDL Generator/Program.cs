@@ -15,6 +15,7 @@ namespace FastDL_Generator
             int RunningTasks = 0;
             int MaxTasks = 2;
             int HardLimit = 4;
+
             // Define Filetypes
             string[] SearchFor = new string[] {
                 "materials/*.vmt",
@@ -53,7 +54,7 @@ namespace FastDL_Generator
             }
 
             // Same as above but instead quitting just set default path as the target path
-            string copyPath = MainPath + "/../FastDL_Upload/";
+            string copyPath = MainPath + $"/../fastdl-{Path.GetFileName(MainPath)}";
             try
             {
                 if (Directory.Exists(args[1]))
@@ -166,19 +167,29 @@ namespace FastDL_Generator
                     Console.WriteLine("All Threads Killed, Generator closed");
 
                     // Save the fastdl.lua in the target folder
-                    File.WriteAllText(copyPath + "/fastdl.lua", FileData);
+                    File.WriteAllText(copyPath + $"/fastdl-{Path.GetFileName(MainPath)}.lua", FileData);
                 }
             }
 
         }
-        
-
+       
         private static void CopyFile(string Filee,string oldFolder, string NewFolder)
         {
             string oldFile = oldFolder+"/"+ Filee;
             string newFile = NewFolder+"/"+ Filee;
-            Directory.CreateDirectory(newFile);
-            Directory.Delete(newFile); // hacky way
+
+            try
+            {
+                Directory.CreateDirectory(newFile);
+            } 
+            catch (Exception) { }
+            
+            try
+            {
+                Directory.Delete(newFile); // hacky way
+            } 
+            catch (Exception) { }
+            
             try
             {
                 File.Copy(oldFile, newFile, true);
