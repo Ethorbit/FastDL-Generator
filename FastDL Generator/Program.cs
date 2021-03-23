@@ -3,15 +3,33 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using ICSharpCode.SharpZipLib.BZip2;
+using System.Diagnostics;
 
 namespace FastDL_Generator
 {
     class Program
     {
-
         public static void Main(string[] args)
         {
-            Console.Title = "FastDL Generator";
+            // Program only accepts 1 directory, 
+            // run it for every additional directory passed
+            if (args.Length > 1)
+            {
+                string currentProgramPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+
+                for (int i = 0; i < args.Length; i++)
+                {
+                    var newProc = new Process();
+                    var startInfo = new ProcessStartInfo();
+                    startInfo.FileName = currentProgramPath;
+                    startInfo.Arguments = $"\"{args[i]}\"";
+                    newProc.StartInfo = startInfo;
+                    newProc.Start();
+                }
+                
+                return;
+			}
+
             int RunningTasks = 0;
             int MaxTasks = 2;
             int HardLimit = 4;
@@ -54,13 +72,7 @@ namespace FastDL_Generator
             }
 
             // Same as above but instead quitting just set default path as the target path
-            string copyPath = MainPath + $"/../fastdl-{Path.GetFileName(MainPath)}";
-            try
-            {
-                if (Directory.Exists(args[1]))
-                    copyPath = args[1];
-            }
-            catch (Exception) { }
+            string copyPath = MainPath + $"/../fastdl-{Path.GetFileName(MainPath).ToLower()}";
 
             // if it exists Clear it because we need a clear folder
             if (Directory.Exists(copyPath))
@@ -167,7 +179,7 @@ namespace FastDL_Generator
                     Console.WriteLine("All Threads Killed, Generator closed");
 
                     // Save the fastdl.lua in the target folder
-                    File.WriteAllText(copyPath + $"/fastdl-{Path.GetFileName(MainPath)}.lua", FileData);
+                    File.WriteAllText(copyPath + $"/fastdl-{Path.GetFileName(MainPath).ToLower()}.lua", FileData);
                 }
             }
 
@@ -210,7 +222,6 @@ namespace FastDL_Generator
             {
                 return new string[] { };
             }
-
         }
 
         private static bool BzipFile(string Path)
