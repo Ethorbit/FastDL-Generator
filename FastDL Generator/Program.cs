@@ -30,6 +30,7 @@ namespace FastDL_Generator
                 "models/*.mdl",
                 "models/*.vtx",
                 "models/*.dx80.vtx",
+                "models/*.dx90.vtx",
                 "models/*.dx90.vtf",
                 "models/*.xbox.vtx",
                 "models/*.sw.vtx",
