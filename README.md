@@ -1,5 +1,5 @@
 # FastDL-Generator
-Generates a FastDL.lua and FastDL files for gmod
+Generates a Fast DL directory with the lua and compressed files
 
 Usage:
 Drag & drop the directories onto the executable
