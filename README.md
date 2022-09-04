@@ -5,8 +5,7 @@ Generates a Fast DL directory with the lua and compressed files
  <details>
      <summary>Windows</summary>
      
-     Usage:
-     Drag & drop the directories onto the executable
+Drag & drop the directories onto the executable
      
 ![](preview.gif)
  </details>
