@@ -11,10 +11,14 @@ Drag & drop the directories onto the executable
  </details>
  <details>
      <summary>Linux</summary>
-     Using Mono:
+     
+     1. Using Mono:
      
 <code>mono "FastDL Generator.exe" "/home/myaccount/Downloads/an-addon"</code>
-     
+    
+    2. Using Docker:
+<code>docker run -it --rm -v /home/workstation/Downloads:/working ethorbit/fastdl-generator:latest /working/an-addon</code>
+  
 Make sure there is no forward slash after the path.
  </details>
 
